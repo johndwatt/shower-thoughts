@@ -79,12 +79,18 @@ const thoughtUpdate = async (req, res, next) => {
     }
 }
 
-const thoughtDestroy = (req, res, next) => {
+const thoughtDestroy = async (req, res, next) => {
     try {
-        res.send(`thoughtDestory works with id: ${req.params.id}`);
+        await Thought.findByIdAndDelete(req.params.id);
+        return res.status(200).json({
+            msg: "Success - shower thought deleted.", 
+        });
     } catch (error) {
         console.log(error);
-        res.send(error);
+        return res.status(400).json({
+            error: error,
+            msg: "Something went wrong. Please try again."
+        });
     }
 }
 
