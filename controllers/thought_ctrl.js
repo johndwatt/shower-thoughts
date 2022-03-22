@@ -1,11 +1,14 @@
 const { Thought } = require("../models");
 
-const thoughtIndex = (req, res, next) => {
+const thoughtIndex = async (req, res, next) => {
     try {
-        res.send("thoughtIndex works");
+        const foundThoughts = await Thought.find().limit(50);
+        return res.status(200).json({
+            thoughts: foundThoughts,
+        })
     } catch (error) {
         console.log(error);
-        res.send(error);
+        return res.status(400).json('Error:', error);
     }
 }
 
