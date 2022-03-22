@@ -2,7 +2,7 @@ const { Thought } = require("../models");
 
 const thoughtIndex = async (req, res, next) => {
     try {
-        const foundThoughts = await Thought.find().limit(50);
+        const foundThoughts = await Thought.find().sort({'createdAt': -1}).limit(1);
         return res.status(200).json({
             thoughts: foundThoughts,
         });
@@ -15,9 +15,9 @@ const thoughtIndex = async (req, res, next) => {
     }
 }
 
-const thoughtShow = (req, res, next) => {
+const thoughtShow = async (req, res, next) => {
     try {
-        const foundThought = Thought.findById(req.params.id);
+        const foundThought = await Thought.findById(req.params.id);
         return res.status(200).json({
             thought: foundThought,
         });
@@ -30,12 +30,30 @@ const thoughtShow = (req, res, next) => {
     }
 }
 
-const thoughtCreate = (req, res, next) => {
+const thoughtCreate = async (req, res, next) => {
     try {
-        res.send(`thoughtCreate works`);
+        const content = req.body.content;
+        const thinker = req.body.thinker;
+        const nsfw = req.body.nsfw;
+    
+        const newThought = new Thought({
+            content,
+            thinker,
+            nsfw,
+        });
+
+        await newThought.save();
+        return res.status(201).json({
+            msg: "Success - new shower thought added.",
+            newThought, 
+        });
+
     } catch (error) {
         console.log(error);
-        res.send(error);
+        return res.status(400).json({
+            error: error,
+            msg: "Something went wrong. Please try again."
+        });
     }
 }
 
