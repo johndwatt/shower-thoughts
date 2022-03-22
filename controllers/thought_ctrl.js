@@ -5,19 +5,28 @@ const thoughtIndex = async (req, res, next) => {
         const foundThoughts = await Thought.find().limit(50);
         return res.status(200).json({
             thoughts: foundThoughts,
-        })
+        });
     } catch (error) {
         console.log(error);
-        return res.status(400).json('Error:', error);
+        return res.status(400).json({
+            error: error,
+            msg: "Something went wrong. Please try again."
+        });
     }
 }
 
 const thoughtShow = (req, res, next) => {
     try {
-        res.send(`thoughtShow works with id: ${req.params.id}`);
+        const foundThought = Thought.findById(req.params.id);
+        return res.status(200).json({
+            thought: foundThought,
+        });
     } catch (error) {
         console.log(error);
-        res.send(error);
+        return res.status(400).json({
+            error: error,
+            msg: "Something went wrong. Please try again."
+        });
     }
 }
 
