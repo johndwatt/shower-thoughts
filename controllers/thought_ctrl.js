@@ -18,7 +18,17 @@ const thoughtShow = (req, res, next) => {
     }
 }
 
+const thoughtCreate = (req, res, next) => {
+    try {
+        res.send(`thoughtCreate works`);
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
+}
+
 module.exports = {
     thoughtIndex,
     thoughtShow,
+    thoughtCreate,
 }
