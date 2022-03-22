@@ -27,8 +27,18 @@ const thoughtCreate = (req, res, next) => {
     }
 }
 
+const thoughtUpdate = (req, res, next) => {
+    try {
+        res.send(`thoughtUpdate works with id: ${req.params.id}`);
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
+}
+
 module.exports = {
     thoughtIndex,
     thoughtShow,
     thoughtCreate,
+    thoughtUpdate
 }
