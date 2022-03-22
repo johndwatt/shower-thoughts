@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 4000;
 // Middleware
 app.use(express.json());
 app.use(cors());
+app.use(require("./middleware/logger"));
 
 // Connection string
 app.listen(PORT, () => {
