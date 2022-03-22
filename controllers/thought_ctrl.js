@@ -2,7 +2,7 @@ const { Thought } = require("../models");
 
 const thoughtIndex = async (req, res, next) => {
     try {
-        const foundThoughts = await Thought.find().sort({'createdAt': -1}).limit(1);
+        const foundThoughts = await Thought.find().sort({'createdAt': -1}).limit(20);
         return res.status(200).json({
             thoughts: foundThoughts,
         });
@@ -57,12 +57,25 @@ const thoughtCreate = async (req, res, next) => {
     }
 }
 
-const thoughtUpdate = (req, res, next) => {
+const thoughtUpdate = async (req, res, next) => {
     try {
-        res.send(`thoughtUpdate works with id: ${req.params.id}`);
+        const foundThought = await Thought.findById(req.params.id);
+
+        foundThought.content = req.body.content;
+        foundThought.thinker = req.body.thinker;
+        foundThought.nsfw = req.body.nsfw;
+        await foundThought.save();
+
+        return res.status(200).json({
+            msg: "Success - shower thought updated.",
+            foundThought, 
+        });
     } catch (error) {
         console.log(error);
-        res.send(error);
+        return res.status(400).json({
+            error: error,
+            msg: "Something went wrong. Please try again."
+        });
     }
 }
 
