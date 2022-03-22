@@ -1,0 +1,29 @@
+{
+  "name": "shower-thoughts",
+  "version": "1.0.0",
+  "description": "Full Stack MERN application for sharing your shower thoughts",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johndwatt/shower-thoughts.git"
+  },
+  "author": "John D Watt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johndwatt/shower-thoughts/issues"
+  },
+  "homepage": "https://github.com/johndwatt/shower-thoughts#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongodb": "^4.4.1",
+    "mongoose": "^6.2.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
