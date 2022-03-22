@@ -9,6 +9,16 @@ const thoughtIndex = (req, res, next) => {
     }
 }
 
+const thoughtShow = (req, res, next) => {
+    try {
+        res.send(`thoughtShow works with id: ${req.params.id}`);
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
+}
+
 module.exports = {
     thoughtIndex,
+    thoughtShow,
 }
