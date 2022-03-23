@@ -1,5 +1,12 @@
 const { Thought } = require("../models");
 
+/**
+ * Selects and returns a random shower thought from all available shower thoughts in database. 
+ * @param {*} req Express request.
+ * @param {*} res Express response. 
+ * @param {*} next Express next.
+ * @returns {Object} JSON response object with random selected thought.
+ */
 const randomThought = async (req, res, next) => {     
     try {
         const thoughts = await Thought.find();
