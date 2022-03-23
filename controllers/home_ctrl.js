@@ -36,7 +36,7 @@ const randomThought = async (req, res, next) => {
  * @param {Object} req Express request.
  * @param {Object} res Express response.
  * @param {Function} next Express next.
- * @returns {Object} JSON response object with random selected thought.
+ * @returns {Object} JSON response object with most recent shower thought.
  */
  const latestThought = async (req, res, next) => {     
     try {
