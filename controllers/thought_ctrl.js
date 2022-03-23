@@ -1,8 +1,15 @@
 const { Thought } = require("../models");
 
+/**
+ * Retrieves and returns 50 of the most recent shower thoughts.
+ * @param {Object} req Express request.
+ * @param {Object} res Express response.
+ * @param {Function} next Express next.
+ * @returns {Object} JSON response object with returned shower thoughts.
+ */
 const thoughtIndex = async (req, res, next) => {
     try {
-        const foundThoughts = await Thought.find().sort({'createdAt': -1}).limit(20);
+        const foundThoughts = await Thought.find().sort({'createdAt': -1}).limit(50);
         return res.status(200).json({
             thoughts: foundThoughts,
         });
@@ -15,6 +22,13 @@ const thoughtIndex = async (req, res, next) => {
     }
 }
 
+/**
+ * Retrieves and returns a single shower thought that matches the request URL id parameter.
+ * @param {Object} req Express request.
+ * @param {Object} res Express response.
+ * @param {Function} next Express next.
+ * @returns {Object} JSON response object with returned shower thought.
+ */
 const thoughtShow = async (req, res, next) => {
     try {
         const foundThought = await Thought.findById(req.params.id);
@@ -30,6 +44,13 @@ const thoughtShow = async (req, res, next) => {
     }
 }
 
+/**
+ * Creates a single shower thought using request body data.
+ * @param {Object} req Express request.
+ * @param {Object} res Express response.
+ * @param {Function} next Express next.
+ * @returns {Object} JSON response object with success message and new shower thought.
+ */
 const thoughtCreate = async (req, res, next) => {
     try {
         const content = req.body.content;
@@ -57,6 +78,13 @@ const thoughtCreate = async (req, res, next) => {
     }
 }
 
+/**
+ * Updates a single shower thought that matches the request URL id parameter using request body data.
+ * @param {Object} req Express request.
+ * @param {Object} res Express response.
+ * @param {Function} next Express next.
+ * @returns {Object} JSON response object with success message and updated shower thought.
+ */
 const thoughtUpdate = async (req, res, next) => {
     try {
         const foundThought = await Thought.findById(req.params.id);
@@ -79,6 +107,13 @@ const thoughtUpdate = async (req, res, next) => {
     }
 }
 
+/**
+ * Destroys a single shower thought that matches the request URL id parameter.
+ * @param {Object} req Express request.
+ * @param {Object} res Express response.
+ * @param {Function} next Express next.
+ * @returns {Object} JSON response object with success message.
+ */
 const thoughtDestroy = async (req, res, next) => {
     try {
         await Thought.findByIdAndDelete(req.params.id);
