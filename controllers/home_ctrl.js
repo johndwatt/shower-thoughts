@@ -2,9 +2,9 @@ const { Thought } = require("../models");
 
 /**
  * Selects and returns a random shower thought from all available shower thoughts in database. 
- * @param {*} req Express request.
- * @param {*} res Express response. 
- * @param {*} next Express next.
+ * @param {Object} req Express request.
+ * @param {Object} res Express response.
+ * @param {Function} next Express next.
  * @returns {Object} JSON response object with random selected thought.
  */
 const randomThought = async (req, res, next) => {     
@@ -31,6 +31,36 @@ const randomThought = async (req, res, next) => {
     }
 }
 
+/**
+ * Selects and returns the most recent shower thought added to database. 
+ * @param {Object} req Express request.
+ * @param {Object} res Express response.
+ * @param {Function} next Express next.
+ * @returns {Object} JSON response object with most recent shower thought.
+ */
+ const latestThought = async (req, res, next) => {     
+    try {
+        const recentThought = await Thought.find().sort({'createdAt': -1}).limit(1);
+        if (recentThought !== undefined) {
+            return res.status(200).json({
+                recentThought,
+                msg: "Latest thought found!",
+            });
+        } else {
+            return res.status(200).json({
+                msg: "No shower thoughts were found. Please try again later.",
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({
+            error: error,
+            msg: "Something went wrong. Please try again."
+        });
+    }
+}
+
 module.exports = {
     randomThought,
+    latestThought,
 }

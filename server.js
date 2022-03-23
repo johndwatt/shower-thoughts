@@ -15,7 +15,7 @@ app.use(cors());
 app.use(require("./middleware/logger"));
 
 // API Routes
-app.use("/", routes.home);
+app.use("/api/v1/home", routes.home);
 app.use("/api/v1", routes.thoughts);
 
 // Connection string
