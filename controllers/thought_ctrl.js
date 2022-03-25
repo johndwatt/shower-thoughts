@@ -9,10 +9,33 @@ const { Thought } = require("../models");
  */
 const thoughtIndex = async (req, res, next) => {
     try {
-        const foundThoughts = await Thought.find().sort({'createdAt': -1}).limit(50);
-        return res.status(200).json({
-            thoughts: foundThoughts,
-        });
+        if (req.query.search) {
+            query = {
+                $or: [
+                {
+                    content: {
+                        $regex: new RegExp(req.query.search),
+                        $options: "i",
+                    },
+                },
+                {
+                    thinker: {
+                        $regex: new RegExp(req.query.search),
+                        $options: "i",
+                    },
+                }],
+            };
+            const searchThoughts = await Thought.find(query).sort({'createdAt': -1}).limit(50);
+            return res.status(200).json({
+                thoughts: searchThoughts,
+            });
+        } else {
+            const foundThoughts = await Thought.find().sort({'createdAt': -1}).limit(50);
+            return res.status(200).json({
+                thoughts: foundThoughts,
+            });
+        }
+
     } catch (error) {
         console.log(error);
         return res.status(400).json({
