@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 require("dotenv").config();
 
-const connectionStr = 'mongodb://localhost:27017/shower-thoughts' || process.env.MONGODB_URI;
+const connectionStr = process.env.MONGODB_URI || 'mongodb://localhost:27017/shower-thoughts';
 
 mongoose.connect(connectionStr);
 
